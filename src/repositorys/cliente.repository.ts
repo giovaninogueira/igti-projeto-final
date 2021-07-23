@@ -16,6 +16,12 @@ interface IClienteRepository {
   find (id: number): Promise<ClienteEntity | null>;
 
   /**
+   * Filter Cliente
+   * @param id
+   */
+   filter (email: string): Promise<ClienteEntity | null>;
+
+  /**
    * Create Cliente
    * @param clienteReq
    */
@@ -62,6 +68,19 @@ class ClienteRepository implements IClienteRepository {
     return await ClienteEntity.findOne<ClienteEntity>({
       where: {
         clienteId: id
+      }
+    })
+  }
+
+  /**
+   * Filter Cliente
+   * @param id
+   * @returns
+   */
+  async filter (email: string): Promise<ClienteEntity | null> {
+    return await ClienteEntity.findOne<ClienteEntity>({
+      where: {
+        email: email
       }
     })
   }

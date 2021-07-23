@@ -1,12 +1,31 @@
 import { inject, injectable } from 'tsyringe'
 import ClienteEntity from '../entities/cliente.entity'
 import { IClienteRepository } from '../repositorys/cliente.repository'
-import { hash } from 'bcryptjs'
+import { hash, compare } from 'bcryptjs'
 import { ExceptionHttpCustom } from '../exceptions/exception'
 
 @injectable()
 export class ClienteService {
   constructor (@inject('ClienteRepository') private clienteRepository: IClienteRepository) { }
+
+  async login (email: string, password: string) {
+    const cliente = await this.clienteRepository.filter(email)
+    if (!cliente) {
+      throw new ExceptionHttpCustom({
+        error: 'E-mail or password invalid',
+        code: 400
+      })
+    }
+    const passwordMatch = await compare(password, cliente.senha)
+
+    if (!passwordMatch) {
+      throw new ExceptionHttpCustom({
+        error: 'E-mail or password invalid',
+        code: 400
+      })
+    }
+    return cliente
+  }
 
   /**
    * Get list clientes
