@@ -14,7 +14,7 @@
     "typescript",
     "livro"
   ],
-  "author": "",
+  "author": "Giovani Cassiano Nogueira",
   "license": "ISC",
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

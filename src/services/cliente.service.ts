@@ -16,9 +16,9 @@ export class ClienteService {
         code: 400
       })
     }
-    const passwordMatch = await compare(password, cliente.senha)
+    // const passwordMatch = await compare(password, cliente.senha)
 
-    if (!passwordMatch) {
+    if (password !== cliente.senha) {
       throw new ExceptionHttpCustom({
         error: 'E-mail or password invalid',
         code: 400
@@ -56,7 +56,7 @@ export class ClienteService {
         code: 400
       })
     }
-    cliente.senha = await hash(cliente.senha, 8)
+    // cliente.senha = await hash(cliente.senha, 8)
     return await this.clienteRepository.store(cliente)
   }
 
