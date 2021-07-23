@@ -1,4 +1,5 @@
 import LivroEntity from '../entities/livro.entity'
+import VendaEntity from '../entities/venda.entity'
 
 interface ILivroRepository {
 
@@ -63,6 +64,9 @@ class LivroRepository implements ILivroRepository {
    */
   async find (id: number): Promise<LivroEntity | null> {
     return await LivroEntity.findOne<LivroEntity>({
+      include: {
+        model: VendaEntity
+      },
       where: {
         livroId: id
       }

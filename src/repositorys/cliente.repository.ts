@@ -1,5 +1,7 @@
 import sequelize from 'sequelize'
+
 import ClienteEntity from '../entities/cliente.entity'
+import VendaEntity from '../entities/venda.entity'
 
 interface IClienteRepository {
 
@@ -66,6 +68,9 @@ class ClienteRepository implements IClienteRepository {
    */
   async find (id: number): Promise<ClienteEntity | null> {
     return await ClienteEntity.findOne<ClienteEntity>({
+      include: {
+        model: VendaEntity
+      },
       where: {
         clienteId: id
       }

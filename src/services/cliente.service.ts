@@ -85,7 +85,7 @@ export class ClienteService {
         code: 404
       })
     }
-    const vendas = clienteObj.vendas
+    const vendas = await clienteObj.vendas
     if (vendas && vendas.length) {
       throw new ExceptionHttpCustom({
         error: 'Não pode ser deletado, possui vendas',

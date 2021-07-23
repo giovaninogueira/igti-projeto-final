@@ -1,5 +1,6 @@
 import sequelize from 'sequelize'
 import AutorEntity from '../entities/autor.entity'
+import LivroEntity from '../entities/livro.entity'
 
 interface IAutoRepository {
 
@@ -60,6 +61,9 @@ class AutorRepository implements IAutoRepository {
    */
   async find (id: number): Promise<AutorEntity | null> {
     return await AutorEntity.findOne<AutorEntity>({
+      include: {
+        model: LivroEntity
+      },
       where: {
         autorId: id
       }

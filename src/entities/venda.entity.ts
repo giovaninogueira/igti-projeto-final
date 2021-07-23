@@ -25,13 +25,13 @@ export default class VendaEntity extends Model<VendaEntity> {
   @Column({
     field: 'cliente_id'
   })
-  clienteId!: string;
+  clienteId!: number;
 
   @ForeignKey(() => LivroEntity)
   @Column({
     field: 'livro_id'
   })
-  livroId!: string;
+  livroId!: number;
 
   @BelongsTo(() => ClienteEntity)
   cliente!: ClienteEntity
