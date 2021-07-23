@@ -1,6 +1,9 @@
 import { Sequelize } from 'sequelize-typescript'
-import path from 'path'
 import { IDatabase } from '../database.interface'
+import AutorEntity from '../../entities/autor.entity'
+import ClienteEntity from '../../entities/cliente.entity'
+import LivroEntity from '../../entities/livro.entity'
+import VendaEntity from '../../entities/venda.entity'
 
 export class SequelizeDatabase extends Sequelize implements IDatabase {
   constructor () {
@@ -12,7 +15,10 @@ export class SequelizeDatabase extends Sequelize implements IDatabase {
       port: 49153,
       logging: false,
       models: [
-        path.join(__dirname, '../../entities')
+        AutorEntity,
+        ClienteEntity,
+        LivroEntity,
+        VendaEntity
       ]
     })
   }
@@ -20,7 +26,7 @@ export class SequelizeDatabase extends Sequelize implements IDatabase {
   /**
    * Connect in database
    */
-  async connect () {
+  async connectDB () {
     await this.sync()
   }
 }

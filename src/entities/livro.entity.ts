@@ -28,7 +28,7 @@ export default class LivroEntity extends Model<LivroEntity> {
     @Column({
       field: 'autor_id'
     })
-    autorId!: string;
+    autorId!: number;
 
     @BelongsTo(() => AutorEntity)
     autor!: AutorEntity;

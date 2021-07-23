@@ -3,6 +3,7 @@ import express from 'express'
 import 'express-async-errors'
 import router from './routes/route.router'
 import { errorMiddleware } from './middlewares/error.middleware'
+import { mongoose } from './databases/mongoDB/mongoose'
 
 class App {
   /**
@@ -18,7 +19,8 @@ class App {
    * Connect With databases
    */
   private async connectDBs () {
-    await sequelize.connect()
+    await mongoose.connectDB()
+    await sequelize.connectDB()
   }
 
   /**
