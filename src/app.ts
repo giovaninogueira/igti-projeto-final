@@ -1,6 +1,8 @@
 import { sequelize } from './databases/mysql/sequelize'
 import express from 'express'
+import 'express-async-errors'
 import router from './routes/route.router'
+import { errorMiddleware } from './middlewares/error.middleware'
 
 class App {
   /**
@@ -13,6 +15,13 @@ class App {
   }
 
   /**
+   * Connect With databases
+   */
+  private async connectDBs () {
+    await sequelize.connect()
+  }
+
+  /**
    * Start Server
    * @returns
    */
@@ -20,14 +29,8 @@ class App {
     const app = express()
     app.use(express.json())
     app.use('/', router)
+    app.use(errorMiddleware)
     return app
-  }
-
-  /**
-   * Connect With databases
-   */
-  private async connectDBs () {
-    await sequelize.connect()
   }
 }
 
