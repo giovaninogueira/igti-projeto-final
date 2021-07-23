@@ -4,7 +4,7 @@ import { ExceptionHttpCustom } from '../exceptions/exception'
 import { ClienteRepository, IClienteRepository } from '../repositorys/cliente.repository'
 import { ClienteService } from '../services/cliente.service'
 
-export const adminMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+export const userMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   if (!req.headers.authorization) {
     throw new ExceptionHttpCustom({
       error: 'Não permitido',
@@ -13,12 +13,13 @@ export const adminMiddleware = async (req: Request, res: Response, next: NextFun
   }
   container.registerSingleton<IClienteRepository>('ClienteRepository', ClienteRepository)
   const instanceRepository = container.resolve(ClienteService)
+
   const [, auth] = req.headers.authorization.split(' ')
   const credentials = Buffer.from(auth, 'base64').toString('ascii')
   const [username, password] = credentials.split(':')
   if (username !== 'admin' || password !== 'desafio-igti-nodejs') {
-    const user = await instanceRepository.login(username, password)
-    req.body.user = user
+    const { clienteId } = await instanceRepository.login(username, password)
+    req.body.clienteId = clienteId
   }
-  next(req)
+  next()
 }

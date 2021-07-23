@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.post('/livro/info', adminMiddleware, livroController.store.bind(livroController))
 router.delete('/livro/info/:id', adminMiddleware, livroController.delete.bind(livroController))
-router.post('/livro/:id/avaliacao', adminMiddleware, livroController.addAvaliacao.bind(livroController))
+router.post('/livro/:id/avaliacao', livroController.addAvaliacao.bind(livroController))
 router.delete('/livro/:id/avaliacao/:index', adminMiddleware, livroController.removeAvaliacao.bind(livroController))
 
 export { router }
