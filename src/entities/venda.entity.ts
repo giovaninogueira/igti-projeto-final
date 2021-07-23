@@ -3,12 +3,15 @@ import ClienteEntity from './cliente.entity'
 import LivroEntity from './livro.entity'
 
 @Table({
-  tableName: 'vendas'
+  tableName: 'vendas',
+  timestamps: false
 })
 export default class VendaEntity extends Model<VendaEntity> {
   @PrimaryKey
   @Column({
-    field: 'venda_id'
+    field: 'venda_id',
+    autoIncrement: true,
+    allowNull: false
   })
   vendaId!: number;
 

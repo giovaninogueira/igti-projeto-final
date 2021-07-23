@@ -8,6 +8,7 @@ export const errorMiddleware = (err: any, req: Request, res: Response, next: Nex
     res.status(errorCustom.code)
     return res.json({ error })
   }
+  console.log(err)
   res.status(500)
   return res.json({ message: 'Internal Server Error' })
 }
