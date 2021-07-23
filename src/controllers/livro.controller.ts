@@ -8,7 +8,32 @@ import { requestValidator } from '../utils/validator'
 
 export class LivroController {
   /**
-   * Create cliente
+   * Get Livros
+   * @param req
+   * @param resp
+   */
+  async get (req: Request, resp: Response) {
+    const livros = await this.instanceRepository.get()
+    resp.status(200).json({
+      livros
+    })
+  }
+
+  /**
+   * Find Livro
+   * @param req
+   * @param resp
+   */
+  async filter (req: Request, resp: Response) {
+    const autorId = parseInt(req.params.autorId)
+    const livro = await this.instanceRepository.filter(autorId)
+    resp.status(200).json({
+      livro
+    })
+  }
+
+  /**
+   * Find Livro
    * @param req
    * @param resp
    */

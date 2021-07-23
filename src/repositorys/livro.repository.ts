@@ -3,10 +3,20 @@ import LivroEntity from '../entities/livro.entity'
 interface ILivroRepository {
 
    /**
+   * Get Livro
+   */
+    get (): Promise<LivroEntity[]>;
+
+   /**
    * Find Livro
    * @param id
    */
   find (id: number): Promise<LivroEntity | null>;
+
+  /**
+   * filter Livro
+   */
+   filter (autorId: number): Promise<LivroEntity[]>;
 
   /**
    * Create Livro
@@ -24,6 +34,28 @@ interface ILivroRepository {
 }
 
 class LivroRepository implements ILivroRepository {
+  /**
+   * Find Livro
+   * @param id
+   * @returns
+   */
+  async get (): Promise<LivroEntity[]> {
+    return await LivroEntity.findAll()
+  }
+
+  /**
+   * filter Livro
+   * @param id
+   * @returns
+   */
+  async filter (autorId: number): Promise<LivroEntity[]> {
+    return await LivroEntity.findAll({
+      where: {
+        autorId: autorId
+      }
+    })
+  }
+
   /**
    * Find Livro
    * @param id

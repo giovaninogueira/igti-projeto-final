@@ -14,7 +14,19 @@ export class LivroService {
   ) { }
 
   /**
-   * Get list autores
+   * Get list livros
+   * @returns
+   */
+  async get () {
+    return await this.livroRepository.get()
+  }
+
+  async filter (autorId: number) {
+    return await this.livroRepository.filter(autorId)
+  }
+
+  /**
+   * Get list livro
    * @returns
    */
   async find (id: number) {
