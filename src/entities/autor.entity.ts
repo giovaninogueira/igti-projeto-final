@@ -24,5 +24,5 @@ export default class AutorEntity extends Model<AutorEntity> {
     telefone!: string;
 
     @HasMany(() => LivroEntity)
-    autor!: LivroEntity
+    livros!: LivroEntity[]
 }

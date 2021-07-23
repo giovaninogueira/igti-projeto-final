@@ -13,9 +13,19 @@ export class ClienteController {
   async find (req: Request, resp: Response) {
     const id = parseInt(req.params.id)
     const cliente = await this.instanceRepository.find(id)
-    resp.status(201).json({
+    resp.status(200).json({
       cliente
     })
+  }
+
+  /**
+   * Get Clientes
+   * @param req
+   * @param resp
+   */
+  async get (req: Request, resp: Response) {
+    const clientes = await this.instanceRepository.get()
+    resp.status(200).json({ clientes })
   }
 
   /**
@@ -29,13 +39,6 @@ export class ClienteController {
     resp.status(201).json({
       message: 'Cliente Cadastrado com sucesso!',
       data: cliente
-    })
-  }
-
-  async get (req: Request, resp: Response) {
-    const clientes = await this.instanceRepository.get()
-    resp.status(201).json({
-      clientes: clientes
     })
   }
 

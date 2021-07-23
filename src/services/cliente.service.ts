@@ -70,7 +70,7 @@ export class ClienteService {
     if (vendas && vendas.length) {
       throw new ExceptionHttpCustom({
         error: 'Não pode ser deletado, possui vendas',
-        code: 404
+        code: 400
       })
     }
     return await this.clienteRepository.delete(clienteObj)
