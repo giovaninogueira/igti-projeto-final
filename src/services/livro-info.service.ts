@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe'
 import { ILivroInfoEntity } from '../entities/livro-info.entity'
 import { ExceptionHttpCustom } from '../exceptions/exception'
-import { ILivroInfoRepository } from '../repositorys/livro-info.service'
+import { ILivroInfoRepository } from '../repositorys/livro-info.repository'
 import { ILivroRepository } from '../repositorys/livro.repository'
 
 @injectable()

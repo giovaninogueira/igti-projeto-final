@@ -34,5 +34,5 @@ export default class LivroEntity extends Model<LivroEntity> {
     autor!: AutorEntity;
 
     @HasMany(() => VendaEntity)
-    vendas!: VendaEntity;
+    vendas!: VendaEntity[];
 }

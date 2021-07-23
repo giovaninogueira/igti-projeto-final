@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
-import { ILivroInfoRepository, LivroInfoRepository } from '../repositorys/livro-info.service'
+import { ILivroInfoRepository, LivroInfoRepository } from '../repositorys/livro-info.repository'
 import { ILivroRepository, LivroRepository } from '../repositorys/livro.repository'
 import { LivroInfoService } from '../services/livro-info.service'
 import { requestValidator } from '../utils/validator'

@@ -2,14 +2,33 @@ import { inject, injectable } from 'tsyringe'
 import LivroEntity from '../entities/livro.entity'
 import { ExceptionHttpCustom } from '../exceptions/exception'
 import { IAutoRepository } from '../repositorys/autor.repository'
+import { ILivroInfoRepository } from '../repositorys/livro-info.repository'
 import { ILivroRepository } from '../repositorys/livro.repository'
 
 @injectable()
 export class LivroService {
   constructor (
     @inject('LivroRepository') private livroRepository: ILivroRepository,
-    @inject('AutorRepository') private autorRepository: IAutoRepository
+    @inject('AutorRepository') private autorRepository: IAutoRepository,
+    @inject('LivroInfoRepository') private livroInfoRepository: ILivroInfoRepository
   ) { }
+
+  /**
+   * Get list autores
+   * @returns
+   */
+  async find (id: number) {
+    const result = await this.livroRepository.find(id)
+    const info = await this.livroInfoRepository.find(id)
+    return {
+      livroId: result?.livroId,
+      nome: result?.nome,
+      valor: result?.valor,
+      estoque: result?.estoque,
+      autorId: result?.autorId,
+      info: info
+    }
+  }
 
   /**
    * Create Autor
@@ -41,5 +60,23 @@ export class LivroService {
       })
     }
     return await this.livroRepository.update(livroObj, valor)
+  }
+
+  async delete (id: number) {
+    const livroObj = await this.livroRepository.find(id)
+    if (!livroObj) {
+      throw new ExceptionHttpCustom({
+        error: 'Livro não existente',
+        code: 404
+      })
+    }
+    const vendas = livroObj.vendas
+    if (vendas && vendas.length) {
+      throw new ExceptionHttpCustom({
+        error: 'Não pode ser deletado, possui vendas',
+        code: 400
+      })
+    }
+    return await this.livroRepository.delete(livroObj)
   }
 }

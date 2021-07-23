@@ -19,6 +19,8 @@ interface ILivroRepository {
    * @param livroReq
    */
   update (livro: LivroEntity, valor: number): Promise<LivroEntity>
+
+  delete (livro: LivroEntity): Promise<void>
 }
 
 class LivroRepository implements ILivroRepository {
@@ -57,6 +59,15 @@ class LivroRepository implements ILivroRepository {
   async update (livro: LivroEntity, valor: number): Promise<LivroEntity> {
     livro.valor = valor
     return await livro.save()
+  }
+
+  /**
+   * Delete livro
+   * @param autor
+   * @returns
+   */
+  async delete (livro: LivroEntity): Promise<void> {
+    return await livro.destroy()
   }
 }
 
