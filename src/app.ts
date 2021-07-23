@@ -1,4 +1,4 @@
-import { sequelize } from './databases/mysql/sequelize'
+import { sequelize } from './databases/postgres/sequelize'
 import express from 'express'
 import 'express-async-errors'
 import router from './routes/route.router'
