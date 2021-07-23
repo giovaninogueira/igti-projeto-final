@@ -41,6 +41,12 @@ export class VendaController {
     resp.status(200).json({ vendas })
   }
 
+  async filterCliente (req: Request, resp: Response) {
+    const clienteId = parseInt(req.body.clienteId)
+    const vendas = await this.instanceRepository.filter(clienteId)
+    resp.status(200).json({ vendas })
+  }
+
   /**
    * Get Cliente
    * @param req
